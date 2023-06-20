@@ -1,5 +1,7 @@
 package com.javaunit3.springmvc;
 
+import com.javaunit3.springmvc.model.MovieEntity;
+import com.javaunit3.springmvc.model.VoteEntity;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,35 +15,11 @@ public class HibernateConfig {
         SessionFactory factory = new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(MovieEntity.class)
+                .addAnnotatedClass(VoteEntity.class)
                 .buildSessionFactory();
 
         return factory;
     }
-    @Entity
-    @Table(name = "votes")
-    public class VoteEntity {
-        @Id
-        @GeneratedValue
-        private Integer id;
 
-        @Column(name = "voter_Name")
-        private String voterName;
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        public String getVoterName() {
-            return voterName;
-        }
-
-        public void setVoterName(String voterName) {
-            this.voterName = voterName;
-        }
-    }
 }
 

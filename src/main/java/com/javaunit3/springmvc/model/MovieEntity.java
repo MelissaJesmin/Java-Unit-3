@@ -1,8 +1,7 @@
-package com.javaunit3.springmvc;
-
-import com.javaunit3.springmvc.HibernateConfig;
+package com.javaunit3.springmvc.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
@@ -15,11 +14,27 @@ public class MovieEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name="maturity_rating")
+    @Column(name = "maturity_rating")
     private String maturityRating;
 
-    @Column(name="genre")
+    @Column(name = "genre")
     private String genre;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "movie_id")
+    private List<VoteEntity> votes;
+
+    public List<VoteEntity> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<VoteEntity> votes) {
+        this.votes = votes;
+    }
+
+    public void addVote(VoteEntity vote) {
+        this.votes.add(vote);
+    }
 
     public String getMaturityRating() {
         return maturityRating;
@@ -51,8 +66,5 @@ public class MovieEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void addVote(HibernateConfig.VoteEntity newVote) {
     }
 }
